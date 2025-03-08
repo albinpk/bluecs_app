@@ -112,9 +112,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 shape: const RoundedRectangleBorder(),
                 child: SizedBox(
                   height: 150,
-                  // width: double.infinity,
                   child: ListView.separated(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: _pagePadding,
+                    ),
                     scrollDirection: Axis.horizontal,
                     itemCount: 10,
                     itemBuilder: (context, index) {
@@ -126,7 +128,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       );
                     },
                     separatorBuilder: (BuildContext context, int index) {
-                      return const SizedBox(width: 5);
+                      return const SizedBox(width: 10);
                     },
                   ),
                 ),
@@ -177,9 +179,6 @@ class _SimilarStores extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-    final colors = theme.colorScheme;
     return Column(
       children: [
         Padding(
@@ -200,101 +199,111 @@ class _SimilarStores extends StatelessWidget {
 
         SizedBox(
           height: 200,
-          // width: double.infinity,
           child: ListView.separated(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: _pagePadding,
+            ),
             scrollDirection: Axis.horizontal,
             itemCount: 10,
             itemBuilder: (context, index) {
-              return SizedBox(
-                width: 240,
-                child: Card(
-                  // margin: con,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8),
+              return const _StoreCard();
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(width: 10);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _StoreCard extends StatelessWidget {
+  const _StoreCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colors = theme.colorScheme;
+    return SizedBox(
+      width: 240,
+      child: Card(
+        // margin: con,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            spacing: 8,
+            children: [
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(8),
+                  ),
+                  child: Image.network(
+                    'https://plus.unsplash.com/premium_photo-1661883237884-263e8de8869b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Row(
+                spacing: 5,
+                children: [
+                  const CircleAvatar(
+                    radius: 13,
+                    backgroundImage: NetworkImage('https://picsum.photos/100'),
+                  ),
+                  Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      spacing: 8,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(8),
-                            ),
-                            child: Image.network(
-                              'https://plus.unsplash.com/premium_photo-1661883237884-263e8de8869b?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D',
-                              fit: BoxFit.cover,
-                            ),
+                        Text(
+                          'Burger King',
+                          style: textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Row(
-                          spacing: 5,
+                        const Row(
+                          spacing: 2,
                           children: [
-                            const CircleAvatar(
-                              radius: 13,
-                              backgroundImage: NetworkImage(
-                                'https://picsum.photos/100',
+                            Text(
+                              '4.5',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.orange,
                               ),
                             ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Burger King',
-                                    style: textTheme.bodySmall?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const Row(
-                                    spacing: 2,
-                                    children: [
-                                      Text(
-                                        '4.5',
-                                        style: TextStyle(
-                                          fontSize: 10,
-                                          color: Colors.orange,
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.star_rounded,
-                                        size: 10,
-                                        color: Colors.orange,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Card(
-                              color: colors.primary,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 6,
-                                  vertical: 4,
-                                ),
-                                child: Text(
-                                  'Contact Us',
-                                  style: textTheme.labelSmall?.copyWith(
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
+                            Icon(
+                              Icons.star_rounded,
+                              size: 10,
+                              color: Colors.orange,
                             ),
                           ],
                         ),
                       ],
                     ),
                   ),
-                ),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return const SizedBox(width: 5);
-            },
+                  Card(
+                    color: colors.primary,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 4,
+                      ),
+                      child: Text(
+                        'Contact Us',
+                        style: textTheme.labelSmall?.copyWith(fontSize: 8),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 }
@@ -384,7 +393,9 @@ class _Products extends StatelessWidget {
             height: 180,
             // width: double.infinity,
             child: ListView.separated(
-              padding: const EdgeInsets.all(10).copyWith(top: 0, bottom: 20),
+              padding: const EdgeInsets.symmetric(
+                horizontal: _pagePadding,
+              ).copyWith(bottom: 15),
               scrollDirection: Axis.horizontal,
               itemCount: 10,
               itemBuilder: (context, index) {
@@ -398,7 +409,7 @@ class _Products extends StatelessWidget {
                 );
               },
               separatorBuilder: (BuildContext context, int index) {
-                return const SizedBox(width: 5);
+                return const SizedBox(width: 10);
               },
             ),
           ),
