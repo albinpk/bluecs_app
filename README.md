@@ -1,3 +1,7 @@
 # bluecs_app
 
-A new Flutter project.
+A sample ui application built with Flutter.
+
+### Screenshots
+
+![ios](docs/screenshot.png)
